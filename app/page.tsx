@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Hammer, Lock, ExternalLink, Mail, Bug, Globe, ArrowDown } from 'lucide-react';
 import { FaXTwitter, FaGithub, FaLinkedin } from "react-icons/fa6";
 
@@ -101,7 +101,7 @@ const content = {
   }
 };
 
-const fadeInUp = {
+const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 60 },
     visible: { 
         opacity: 1, 
@@ -110,7 +110,7 @@ const fadeInUp = {
     }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,

@@ -22,17 +22,17 @@ export const metadata: Metadata = {
     creator: "@parodin",
     title: "Marabunta Labs: The Challenge 2026",
     description: "12 Projects. 12 Months. No looking back.",
-    images: ["https://marabunta-labs.vercel.app/og-image.png"],
+    // images: ["https://marabunta-labs.vercel.app/og-image.png"],
   },
   openGraph: {
     type: "website",
     url: "https://marabunta-labs.vercel.app",
     title: "Marabunta Labs",
-    description: "Construyendo 12 startups en público.",
+    description: "Chaos, code, and constant construction. Join the challenge to launch a tech product every 30 days.",
     siteName: "Marabunta Labs",
-    images: [{
-      url: "https://marabunta-labs.vercel.app/og-image.png",
-    }],
+    // images: [{
+    //   url: "https://marabunta-labs.vercel.app/og-image.png",
+    // }],
   },
 };
 

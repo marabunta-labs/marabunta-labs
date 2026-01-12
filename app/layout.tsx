@@ -14,14 +14,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Marabunta Labs | 12 Startups en 12 Meses",
-  description: "Caos, código y construcción constante. Únete al reto de lanzar un producto tecnológico cada 30 días.",
+  title: "Marabunta Labs | 12 Projects. 12 Months",
+  description: "Chaos, code, and constant construction. Join the challenge to launch a tech product every 30 days.",
   twitter: {
     card: "summary_large_image",
     site: "@marabunta_labs",
     creator: "@parodin",
-    title: "Marabunta Labs: El Reto 2026",
-    description: "12 Proyectos. 12 Meses. Sin mirar atrás.",
+    title: "Marabunta Labs: The Challenge 2026",
+    description: "12 Projects. 12 Months. No looking back.",
     images: ["https://marabunta-labs.vercel.app/og-image.png"],
   },
   openGraph: {

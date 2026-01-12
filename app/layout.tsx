@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     //   url: "https://marabunta-labs.vercel.app/og-image.png",
     // }],
   },
+  verification: {
+    google: '9E9qC957fjoZRJkZ-oF2MVGW07hf21zbklJXKRMtToY',
+  },
 };
 
 export default function RootLayout({

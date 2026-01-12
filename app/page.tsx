@@ -27,7 +27,6 @@ const content = {
     common: {
       statusBuild: 'Construyendo',
       viewProject: 'Ver Proyecto',
-      footerText: 'Construido con',
       footerKofi: 'Café',
       footerKofiTooltip: 'Invítame a un Ko-fi',
       footerCopyright: 'Marabunta Labs 2026 ©',
@@ -80,11 +79,10 @@ const content = {
     common: {
       statusBuild: 'Building',
       viewProject: 'View Project',
-      footerText: 'Build with',
       footerKofi: 'Coffee',
       footerKofiTooltip: 'Buy me a Ko-fi',
       footerCopyright: 'Marabunta Labs 2026 ©',
-      footerBuildWith: 'Build with',
+      footerBuildWith: 'Built with',
       privacy: 'Privacy',
       terms: 'Terms',
       contact: 'Contact',

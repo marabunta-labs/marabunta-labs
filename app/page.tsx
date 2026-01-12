@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { motion, Variants } from 'framer-motion';
-import { Hammer, Lock, ExternalLink, Mail, Bug, Globe, ArrowDown } from 'lucide-react';
+import { Hammer, Lock, ExternalLink, Mail, Bug, Globe, ArrowDown, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { FaXTwitter, FaGithub, FaLinkedin } from "react-icons/fa6";
+import { SiKofi } from "react-icons/si";
+import { subscribeToKit } from './actions/subscribe';
 
 // --- CONFIGURACIÓN DE DATOS ---
 const content = {
@@ -19,13 +21,20 @@ const content = {
       titleSuffix: '12 Meses',
       subtitle: 'El objetivo es simple: construir y lanzar un producto tecnológico cada 30 días en público.',
       placeholder: 'Tu mejor email...',
-      button: 'Notificarme con las novedades',
+      button: 'Seguir el reto',
       disclaimer: 'Únete a la marabunta y sé uno de los primeros en seguir el reto.',
     },
     common: {
       statusBuild: 'Construyendo',
       viewProject: 'Ver Proyecto',
-      footerText: '© 2026 Marabunta Labs — construido con café ☕',
+      footerText: 'Construido con',
+      footerKofi: 'Café',
+      footerKofiTooltip: 'Invítame a un Ko-fi',
+      footerCopyright: 'Marabunta Labs 2026 ©',
+      footerBuildWith: 'Construido con',
+      privacy: 'Privacidad',
+      terms: 'Términos',
+      contact: 'Contacto',
       months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     },
     projectsData: [
@@ -33,22 +42,22 @@ const content = {
         title: 'AWS CDK Visualizer', 
         desc: 'Extensión para VS Code para visualizar infraestructura como código.', 
         status: 'building', 
-        link: 'https://github.com/tu-usuario/aws-cdk-viz' 
+        link: 'http://github.com/marabunta-labs/aws-cdk-viz/blob/main/README.md' 
       },
       { 
-        title: 'Bot Secreto', 
-        desc: 'Automatización para comunidades de Telegram.', 
+        title: 'SQL diagram Generator', 
+        desc: 'Extensión para VS Code para generar diagramas SQL.', 
         status: 'locked', 
         link: '#' 
       },
-      { title: '???', desc: 'SaaS Tool', status: 'locked', link: '#' },
-      { title: '???', desc: 'IA App', status: 'locked', link: '#' },
-      { title: '???', desc: 'App Móvil', status: 'locked', link: '#' },
-      { title: '???', desc: 'Micro-SaaS', status: 'locked', link: '#' },
-      { title: '???', desc: 'Herramienta Dev', status: 'locked', link: '#' },
-      { title: '???', desc: 'App Productividad', status: 'locked', link: '#' },
-      { title: '???', desc: 'Analytics Tool', status: 'locked', link: '#' },
-      { title: '???', desc: 'E-commerce Plugin', status: 'locked', link: '#' },
+      { title: '???', desc: 'Herramienta de línea de comandos', status: 'locked', link: '#' },
+      { title: '???', desc: 'ChatBot IA', status: 'locked', link: '#' },
+      { title: '???', desc: 'Recomendador IA', status: 'locked', link: '#' },
+      { title: '???', desc: 'Generador de Música', status: 'locked', link: '#' },
+      { title: '???', desc: 'Bot de Telegram', status: 'locked', link: '#' },
+      { title: '???', desc: 'Gestor de QR', status: 'locked', link: '#' },
+      { title: '???', desc: 'Herramienta de mensajería creativa', status: 'locked', link: '#' },
+      { title: '???', desc: 'Aplicación web de mapas', status: 'locked', link: '#' },
       { title: '???', desc: 'Juego Web', status: 'locked', link: '#' },
       { title: '???', desc: 'Grand Finale', status: 'locked', link: '#' },
     ]
@@ -65,13 +74,20 @@ const content = {
       titleSuffix: '12 Months',
       subtitle: 'The goal is simple: build and ship a tech product every 30 days in public.',
       placeholder: 'Your best email...',
-      button: 'Notify me of updates',
+      button: 'Get updates',
       disclaimer: 'Join the marabunta and be among the first to follow the challenge.',
     },
     common: {
       statusBuild: 'Building',
       viewProject: 'View Project',
-      footerText: '© 2026 Marabunta Labs — built with coffee ☕',
+      footerText: 'Build with',
+      footerKofi: 'Coffee',
+      footerKofiTooltip: 'Buy me a Ko-fi',
+      footerCopyright: 'Marabunta Labs 2026 ©',
+      footerBuildWith: 'Build with',
+      privacy: 'Privacy',
+      terms: 'Terms',
+      contact: 'Contact',
       months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     },
     projectsData: [
@@ -79,22 +95,22 @@ const content = {
         title: 'AWS CDK Visualizer', 
         desc: 'VS Code Extension for infra visualization.', 
         status: 'building', 
-        link: 'https://github.com/tu-usuario/aws-cdk-viz/blob/main/README_EN.md' 
+        link: 'http://github.com/marabunta-labs/aws-cdk-viz/blob/main/README.md' 
       },
       { 
-        title: 'Secret Bot', 
-        desc: 'Telegram Automation Community Tool.', 
+        title: 'SQL Diagram Generator', 
+        desc: 'VS Code Extension for generating SQL diagrams.', 
         status: 'locked', 
         link: '#' 
       },
-      { title: '???', desc: 'SaaS Tool', status: 'locked', link: '#' },
-      { title: '???', desc: 'AI App', status: 'locked', link: '#' },
-      { title: '???', desc: 'Mobile App', status: 'locked', link: '#' },
-      { title: '???', desc: 'Micro-SaaS', status: 'locked', link: '#' },
-      { title: '???', desc: 'Dev Tool', status: 'locked', link: '#' },
-      { title: '???', desc: 'Productivity App', status: 'locked', link: '#' },
-      { title: '???', desc: 'Analytics Tool', status: 'locked', link: '#' },
-      { title: '???', desc: 'E-commerce Plugin', status: 'locked', link: '#' },
+      { title: '???', desc: 'CLI Tool', status: 'locked', link: '#' },
+      { title: '???', desc: 'AI ChatBot', status: 'locked', link: '#' },
+      { title: '???', desc: 'AI Recommender', status: 'locked', link: '#' },
+      { title: '???', desc: 'Music Generator', status: 'locked', link: '#' },
+      { title: '???', desc: 'Telegram Bot', status: 'locked', link: '#' },
+      { title: '???', desc: 'QR Manager', status: 'locked', link: '#' },
+      { title: '???', desc: 'Creative messaging', status: 'locked', link: '#' },
+      { title: '???', desc: 'Maps web app', status: 'locked', link: '#' },
       { title: '???', desc: 'Web Game', status: 'locked', link: '#' },
       { title: '???', desc: 'Grand Finale', status: 'locked', link: '#' },
     ]
@@ -136,23 +152,45 @@ export default function Home() {
         icon: <FaGithub size={20} />,
         iconFooter: <FaGithub size={18} />,
       },
-      {
-        href: 'https://linkedin.com/in/parodo',
-        label: 'LinkedIn',
-        icon: <FaLinkedin size={20} />,
-        iconFooter: <FaLinkedin size={18} />,
-      },
+      // {
+      //   href: 'https://linkedin.com/in/parodo',
+      //   label: 'LinkedIn',
+      //   icon: <FaLinkedin size={20} />,
+      //   iconFooter: <FaLinkedin size={18} />,
+      // },
     ];
   const [lang, setLang] = useState<'es' | 'en'>('en'); 
   const t = content[lang];
 
   const toggleLang = () => setLang(prev => prev === 'es' ? 'en' : 'es');
 
+  const [isPending, startTransition] = useTransition(); // Para el estado de carga
+    const [formStatus, setFormStatus] = useState<{ type: 'success' | 'error' | null, message: string }>({ type: null, message: '' });
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        
+        startTransition(async () => {
+            const result = await subscribeToKit(formData);
+            
+            if (result.success) {
+                setFormStatus({ type: 'success', message: result.message });
+                (e.target as HTMLFormElement).reset(); // Limpiar input
+            } else {
+                setFormStatus({ type: 'error', message: result.message });
+            }
+            
+            // Opcional: Limpiar mensaje después de 3 segundos
+            setTimeout(() => setFormStatus({ type: null, message: '' }), 5000);
+        });
+    };
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-indigo-500 selection:text-white overflow-x-hidden">
       
       {/* NAVBAR */}
-      <nav className="flex justify-between items-center p-6 max-w-6xl mx-auto z-50 relative">
+      <nav className="flex justify-between items-center p-6 max-w-7xl mx-auto z-50 relative">
         <div className="flex gap-4">
           {socialLinks.map((item) => (
             <a
@@ -252,20 +290,48 @@ export default function Home() {
                 variants={fadeInUp}
                 className="bg-slate-950/80 p-6 rounded-2xl border border-slate-800 max-w-lg mx-auto backdrop-blur-sm shadow-2xl relative"
             >
-                {/* Pequeño destello en la caja de newsletter */}
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/5 to-indigo-500/0 rounded-2xl animate-pulse-slow pointer-events-none"></div>
                 
-                <div className="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto mb-4 relative z-10">
-                <input 
-                    type="email" 
-                    placeholder={t.challenge.placeholder} 
-                    className="px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-indigo-500 w-full transition-all text-white placeholder:text-slate-600"
-                />
-                <button className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-lg shadow-indigo-500/20 active:scale-95">
-                    <Mail size={18} /> {t.challenge.button}
-                </button>
+                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto mb-4 relative z-10">
+                    <input 
+                        name="email"
+                        type="email" 
+                        required
+                        placeholder={t.challenge.placeholder} 
+                        className="px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-indigo-500 w-full transition-all text-white placeholder:text-slate-600 disabled:opacity-50"
+                        disabled={isPending}
+                    />
+                    <button 
+                        type="submit"
+                        disabled={isPending}
+                        className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-lg shadow-indigo-500/20 active:scale-95"
+                    >
+                        {isPending ? (
+                            <Loader2 size={18} className="animate-spin" />
+                        ) : (
+                            <>
+                                <Mail size={18} /> {t.challenge.button}
+                            </>
+                        )}
+                    </button>
+                </form>
+
+                {/* MENSAJES DE FEEDBACK (Error o Éxito) */}
+                <div className="h-6 relative z-10"> 
+                    {formStatus.type === 'success' && (
+                        <p className="text-emerald-400 text-sm font-medium flex items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-2">
+                            <CheckCircle size={14} /> {formStatus.message}
+                        </p>
+                    )}
+                    {formStatus.type === 'error' && (
+                        <p className="text-red-400 text-sm font-medium flex items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-2">
+                            <AlertCircle size={14} /> {formStatus.message}
+                        </p>
+                    )}
+                    {!formStatus.type && (
+                        <p className="text-xs text-slate-500 font-medium">{t.challenge.disclaimer}</p>
+                    )}
                 </div>
-                <p className="text-xs text-slate-500 font-medium relative z-10">{t.challenge.disclaimer}</p>
             </motion.div>
         </motion.div>
       </section>
@@ -330,11 +396,56 @@ export default function Home() {
       
       {/* FOOTER */}
       <footer className="border-t border-slate-800 bg-slate-950 py-12 relative z-10">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-slate-400 text-sm font-mono text-center md:text-left">
-            {t.common.footerText}
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+          
+          {/* COLUMNA 1 (IZQUIERDA): FIRMA Y COPYRIGHT */}
+          <div className="flex flex-col items-center md:items-start gap-2 order-2 md:order-1">
+            
+            {/* LÍNEA UNIFICADA: Texto + Botones */}
+            <div className="flex flex-wrap justify-center md:justify-start items-center gap-2 text-sm text-slate-400 font-mono">
+              <span>{t.common.footerBuildWith}</span>
+              
+              {/* BOTÓN 1: KO-FI (Estilo Azul/Cian) */}
+              <a 
+                href="https://ko-fi.com/marabunta"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 hover:border-sky-500/50 hover:bg-sky-500/10 hover:text-sky-400 transition-all cursor-pointer"
+                title={t.common.footerKofiTooltip}
+              >
+                <SiKofi className="group-hover:animate-bounce-short" size={12} />
+                <span className="font-bold text-xs">{t.common.footerKofi}</span>
+              </a>
+
+              <span>by</span>
+
+              {/* BOTÓN 2: GITHUB USUARIO */}
+              <a 
+                  href="https://github.com/parodin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:text-indigo-400 transition-all cursor-pointer"
+              >
+                  <FaGithub size={12} />
+                  <span className="font-bold text-xs">@parodin</span>
+              </a>
+            </div>
+
+            {/* COPYRIGHT */}
+            <div className="text-sm text-slate-400 font-mono">
+              {t.common.footerCopyright}
+            </div>
           </div>
-          <div className="flex gap-4 mt-4 md:mt-0">
+
+          {/* COLUMNA 2 (CENTRO): LEGALES */}
+          <div className="flex justify-center gap-6 text-sm text-slate-400 font-medium order-1 md:order-2">
+            <a href="/privacy" className="text-slate-700 hover:text-slate-400 transition-colors">{t.common.privacy}</a>
+            <a href="/terms" className="text-slate-700 hover:text-slate-400 transition-colors">{t.common.terms}</a>
+            <a href="mailto:rodolerio@gmail.com" className="text-slate-700 hover:text-slate-400 transition-colors">{t.common.contact}</a>
+          </div>
+
+          {/* COLUMNA 3 (DERECHA): REDES SOCIALES */}
+          <div className="flex justify-center md:justify-end gap-3 order-3">
             {socialLinks.map((item) => (
               <a
                 key={item.label}
@@ -348,6 +459,7 @@ export default function Home() {
               </a>
             ))}
           </div>
+
         </div>
       </footer>
     </main>

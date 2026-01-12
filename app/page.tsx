@@ -276,7 +276,10 @@ export default function Home() {
             </motion.div>
 
             <motion.h2 variants={fadeInUp} className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
-            {t.challenge.titlePrefix} <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">{t.challenge.titleSuffix}</span>
+              {t.challenge.titlePrefix}{" "}
+              <span className="text-indigo-400 md:text-transparent md:bg-clip-text md:bg-gradient-to-r md:from-indigo-400 md:to-cyan-400 inline-block">
+                {t.challenge.titleSuffix}
+              </span>
             </motion.h2>
             
             <motion.p variants={fadeInUp} className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">

@@ -4,9 +4,9 @@
 [![Twitter](https://img.shields.io/badge/Twitter-@marabunta__labs-black?style=for-the-badge&logo=x)](https://x.com/marabunta_labs)
 
 
-> **Chaos, code, and constant construction.**
+> **Chaos, code, and constant construction**
 
-Welcome to **Marabunta Labs**, my personal experimentation laboratory. Just like the *Marabunta*—a legion of army ants that builds no permanent nests but marches constantly devouring everything in its path—this repository represents my unstoppable march to ship products without looking back.
+Welcome to **Marabunta Labs**, my personal experimentation laboratory. Just like the *Marabunta*; a legion of army ants that builds no permanent nests but marches constantly devouring everything in its path, this repository represents my unstoppable march to ship products without looking back.
 
 
 ---

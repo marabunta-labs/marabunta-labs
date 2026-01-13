@@ -12,7 +12,7 @@ const content = {
   es: {
     brand: {
       title: 'Marabunta Labs',
-      tagline: 'Caos, código y construcción constante.',
+      tagline: 'Caos, código y construcción constante',
       description: 'Marabunta es un ejército de hormigas migratorias que no construye nidos permanentes, sino que avanza arrasando con todo. Este es mi laboratorio de experimentación personal: un avance imparable para lanzar productos sin mirar atrás.',
     },
     challenge: {
@@ -64,7 +64,7 @@ const content = {
   en: {
     brand: {
       title: 'Marabunta Labs',
-      tagline: 'Chaos, code, and constant construction.',
+      tagline: 'Chaos, code, and constant construction',
       description: 'Marabunta refers to a legion of army ants that do not build permanent nests but march constantly, devouring everything. This lab is my unstoppable march to launch personal projects without looking back.',
     },
     challenge: {

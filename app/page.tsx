@@ -26,6 +26,7 @@ const content = {
     },
     common: {
       statusBuild: 'Construyendo',
+      statusLaunched: 'Lanzado',
       viewProject: 'Ver Proyecto',
       footerKofi: 'Café',
       footerKofiTooltip: 'Invítame a un Ko-fi',
@@ -37,19 +38,25 @@ const content = {
       months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     },
     projectsData: [
-      { 
-        title: 'AWS CDK Visualizer', 
-        desc: 'Extensión para VS Code para visualizar infraestructura como código.', 
-        status: 'building', 
-        link: 'http://github.com/marabunta-labs/aws-cdk-viz/blob/main/README.md' 
+      {
+        title: 'CDK STACKMAP',
+        desc: 'Extensión VS Code para visualizar infraestructura AWS CDK.',
+        status: 'launched',
+        link: 'https://marketplace.visualstudio.com/items?itemName=Marabunta.cdk-stackmap&ssr=false#overview',
+        githubLink: 'https://github.com/marabunta-labs/cdk-stackmap'
       },
-      { 
-        title: 'SQL diagram Generator', 
-        desc: 'Extensión para VS Code para generar diagramas SQL.', 
-        status: 'locked', 
-        link: '#' 
+      {
+        title: 'SQL diagram Generator',
+        desc: 'Extensión VS Code para generar diagramas SQL.',
+        status: 'building',
+        link: '#'
       },
-      { title: '???', desc: 'Herramienta de línea de comandos', status: 'locked', link: '#' },
+      {
+        title: 'Movie to ASCII',
+        desc: 'Convierte películas o videos en arte ASCII.',
+        status: 'locked',
+        link: '#'
+      },
       { title: '???', desc: 'ChatBot IA', status: 'locked', link: '#' },
       { title: '???', desc: 'Recomendador IA', status: 'locked', link: '#' },
       { title: '???', desc: 'Generador de Música', status: 'locked', link: '#' },
@@ -78,6 +85,7 @@ const content = {
     },
     common: {
       statusBuild: 'Building',
+      statusLaunched: 'Launched',
       viewProject: 'View Project',
       footerKofi: 'Coffee',
       footerKofiTooltip: 'Buy me a Ko-fi',
@@ -89,19 +97,25 @@ const content = {
       months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     },
     projectsData: [
-      { 
-        title: 'AWS CDK Visualizer', 
-        desc: 'VS Code Extension for infra visualization.', 
-        status: 'building', 
-        link: 'http://github.com/marabunta-labs/aws-cdk-viz/blob/main/README.md' 
+      {
+        title: 'CDK STACKMAP',
+        desc: 'VS Code extension to visualize AWS CDK infrastructure.',
+        status: 'launched',
+        link: 'https://marketplace.visualstudio.com/items?itemName=Marabunta.cdk-stackmap&ssr=false#overview',
+        githubLink: 'https://github.com/marabunta-labs/cdk-stackmap'
       },
-      { 
-        title: 'SQL Diagram Generator', 
-        desc: 'VS Code Extension for generating SQL diagrams.', 
-        status: 'locked', 
-        link: '#' 
+      {
+        title: 'SQL diagram Generator',
+        desc: 'VS Code extension to generate SQL diagrams.',
+        status: 'building',
+        link: '#'
       },
-      { title: '???', desc: 'CLI Tool', status: 'locked', link: '#' },
+      {
+        title: 'Movie to ASCII',
+        desc: 'Convert movies or videos to ASCII art.',
+        status: 'locked',
+        link: '#'
+      },
       { title: '???', desc: 'AI ChatBot', status: 'locked', link: '#' },
       { title: '???', desc: 'AI Recommender', status: 'locked', link: '#' },
       { title: '???', desc: 'Music Generator', status: 'locked', link: '#' },
@@ -364,6 +378,10 @@ export default function Home() {
                     </span>
                     {project.status === 'locked' ? (
                         <Lock size={16} className="text-slate-600" />
+                    ) : project.status === 'launched' ? (
+                        <div className="bg-emerald-500/10 text-emerald-400 text-xs px-2 py-1 rounded border border-emerald-500/20 flex items-center gap-1">
+                        <CheckCircle size={12} /> {t.common.statusLaunched}
+                        </div>
                     ) : (
                         <div className="bg-amber-500/10 text-amber-400 text-xs px-2 py-1 rounded border border-amber-500/20 flex items-center gap-1 animate-pulse">
                         <Hammer size={12} /> {t.common.statusBuild}
@@ -380,14 +398,26 @@ export default function Home() {
                 </div>
 
                 {project.status !== 'locked' && (
-                    <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm font-medium text-white hover:text-indigo-400 transition-colors"
-                    >
-                    {t.common.viewProject} <ExternalLink size={14} className="ml-1" />
-                    </a>
+                    <div className="flex justify-between items-center">
+                      <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sm font-medium text-white hover:text-indigo-400 transition-colors"
+                      >
+                      {t.common.viewProject} <ExternalLink size={14} className="ml-1" />
+                      </a>
+                      {project.githubLink && (
+                        <a 
+                        href={project.githubLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center text-sm font-medium text-slate-400 hover:text-slate-200 transition-colors"
+                        >
+                        <FaGithub size={14} className="mr-1" /> GitHub
+                        </a>
+                      )}
+                    </div>
                 )}
                 </motion.div>
             ))}
